@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui = "http://java.sun.com/jsf/facelets"
+	  xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<title>Sefaz - Cadastro</title>
+</h:head>
+
+<h:body>
+	<h:form> 
+		<h:commandButton value="Voltar" action="index"></h:commandButton>	
+	</h:form>
+
+	<h:form id="formPanel" style="margin-top:2%; margin-left:40%" >
+		<H1>Sefaz - Cadastro Usuário</H1>
+		
+		<h:messages infoStyle="color:green"/>
+		<h:panelGrid columns = "2" rendered="true">
+			<h:outputLabel value="Login:" />
+			<h:inputText value="#{cadastroBean.usuario.login}" label="Login" validatorMessage="O login deve conter entre 5 e 16 caracteres">
+    			<f:validateLength minimum="5" maximum="16"/>
+    			<f:validateRegex pattern="[^\ ]+" /> 
+    		</h:inputText>	
+			
+			<h:outputLabel value="Nome:" />
+			<h:inputText value="#{cadastroBean.usuario.nome}"  label="Nome" validatorMessage="O nome deve conter apenas letras.">
+    			<f:validateRegex pattern="[a-zA-Z ]*" /> 
+			</h:inputText>
+			
+			<h:outputLabel value="Senha:" />
+			<h:inputSecret value="#{cadastroBean.usuario.senha}" validatorMessage="A senha deve conter entre 5 e 16 caracteres">
+    			<f:validateLength minimum="5" maximum="16"/>
+    			<f:validateRegex pattern="[^\ ]+" /> 
+    		</h:inputSecret>	
+    		
+			<h:outputLabel value="E-mail:" />
+			<h:inputText value="#{cadastroBean.usuario.email}" label="Email" validatorMessage="E-mail inválido">
+    			<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" /> 
+    		</h:inputText>
+    			
+		</h:panelGrid>
+		
+		<h:form>
+			<h:outputLabel value="Telefone:" />
+			<h:inputText value="#{cadastroBean.telefone.ddd}" label="ddd" validatorMessage="DDD invalido" size="1" type="number"> 
+	    			<f:validateRegex pattern="[0-9]{3}" /> 
+	    	</h:inputText>
+	    	<h:inputText value="#{cadastroBean.telefone.numero}" label="numero" validatorMessage="numero invalido" size="13"> 
+	    			<f:validateRegex pattern="[0-9]{8}" /> 
+	    	</h:inputText>
+			<h:selectOneRadio value="#{cadastroBean.telefone.tipo}" layout="lineDirection">
+			 	<f:selectItem itemValue="Residencial" itemLabel="Residencial"/>
+			 	<f:selectItem itemValue="Celular" itemLabel="Celular"/>
+			 </h:selectOneRadio>
+			 <h:commandButton value="Add" action="#{cadastroBean.addNumber}"/>
+		</h:form>
+		
+		<h:dataTable value="#{cadastroBean.telefones}" var="usuarios" border="3" cellpadding="6">
+			<f:facet name="header">
+				Lista de números
+			</f:facet>
+			
+			<h:column>
+				<f:facet name="header">DDD</f:facet>
+				<h:outputText value="#{telefones.ddd}"></h:outputText>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">numero</f:facet>
+				<h:outputText value="#{telefones.numero}"></h:outputText>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">tipo</f:facet>
+				<h:outputText value="#{telefones.tipo}"></h:outputText>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Editar</f:facet>
+				<h:commandLink title="Editar">
+					<f:setPropertyActionListener value="#{telefones}" target="#{cadastroBean.telefone}"/> <!-- Objeto pessoa da linha está sendo passado para o objeto pessoa do ManagedBean -->
+					<h:graphicImage value="resources/img/editar.png" height="22" width="22"/>
+				</h:commandLink>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Excluir</f:facet>
+				<h:commandLink action="#{cadastroBean.removeTelefone}" title="Excluir">
+					<f:setPropertyActionListener value="#{telefones}" target="#{cadastroBean.telefone}"/> 
+					<h:graphicImage value="resources/img/excluir.png" height="22" width="22"/>
+				</h:commandLink>
+			</h:column>
+		
+		</h:dataTable>
+		<!-- 
+		<h:panelGrid columns = "3" rendered="true">
+			<h:outputLabel value="Telefone Residencial:" />
+			<h:inputText value="#{cadastroBean.usuario.nome}" size="1"/>
+			<h:inputText value="#{cadastroBean.usuario.nome}"/>
+			
+			<h:outputLabel value="Telefone Celular:" />
+			<h:inputText value="#{cadastroBean.usuario.nome}" size="1"/>
+			<h:inputText value="#{cadastroBean.usuario.nome}"/>
+		</h:panelGrid>
+		 -->
+		<h:commandButton value="Cadastrar" action="#{cadastroBean.salvar}" ></h:commandButton>	
+		
+	</h:form>
+	
+</h:body>
+</html>

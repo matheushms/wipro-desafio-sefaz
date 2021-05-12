@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui = "http://java.sun.com/jsf/facelets"
+	  xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<title>Sefaz - Sessão</title>
+</h:head>
+
+<h:body>
+	<h:form> 
+		<h:commandButton value="Voltar" action="index"></h:commandButton>	
+	</h:form>
+
+	<h:form id="formPanel" style="margin-top:2%; margin-left:40%">
+		<H1>Sefaz - Cadastro ou Atualização de Dados do Usuário</H1>
+		
+		<h:messages infoStyle="color:green"/>
+		<h:panelGrid columns = "2" rendered="true">
+			<h:outputLabel value="Login:" />
+			<h:inputText value="#{cadastroBean.usuario.login}"/>
+			
+			<h:outputLabel value="Nome:" />
+			<h:inputText value="#{cadastroBean.usuario.nome}"  />
+			
+			<h:outputLabel value="Senha:" />
+			<h:inputSecret value="#{cadastroBean.usuario.senha}"/>
+			
+			<h:outputLabel value="E-mail:" />
+			<h:inputText value="#{cadastroBean.usuario.email}" />			
+			
+		</h:panelGrid>
+		<!-- 
+		<h:panelGrid columns = "3" rendered="true">
+			<h:outputLabel value="Telefone Residencial:" />
+			<h:inputText value="#{cadastroBean.usuario.nome}" size="1"/>
+			<h:inputText value="#{cadastroBean.usuario.nome}"/>
+			
+			<h:outputLabel value="Telefone Celular:" />
+			<h:inputText value="#{cadastroBean.usuario.nome}" size="1"/>
+			<h:inputText value="#{cadastroBean.usuario.nome}"/>
+		</h:panelGrid>
+		 -->
+		<h:commandButton value="Cadastrar" action="index.xhtml" ></h:commandButton>	
+		
+	</h:form>
+	
+	<h:form id="formTable" style="margin-top:2%; margin-left:40%">
+		<h:dataTable value="#{cadastroBean.usuarios}" var="usuarios" border="3" cellpadding="6">
+			<f:facet name="header">
+				Lista de Usuários Cadastrados
+			</f:facet>
+			
+			<h:column>
+				<f:facet name="header">Id</f:facet>
+				<h:outputText value="#{usuarios.login}"></h:outputText>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+				<h:outputText value="#{usuarios.nome}"></h:outputText>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Sobrenome</f:facet>
+				<h:outputText value="#{usuarios.email}"></h:outputText>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Editar</f:facet>
+				<h:commandLink title="Editar">
+					<f:setPropertyActionListener value="#{usuarios}" target="#{cadastroBean.usuario}"/> <!-- Objeto pessoa da linha está sendo passado para o objeto pessoa do ManagedBean -->
+					<h:graphicImage value="resources/img/editar.png" height="22" width="22"/>
+				</h:commandLink>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Excluir</f:facet>
+				<h:commandLink action="#{cadastroBean.remove}" title="Excluir">
+					<f:setPropertyActionListener value="#{usuarios}" target="#{cadastroBean.usuario}"/> 
+					<h:graphicImage value="resources/img/excluir.png" height="22" width="22"/>
+				</h:commandLink>
+			</h:column>
+		
+		</h:dataTable>
+		
+		
+	</h:form>
+	
+</h:body>
+</html>
