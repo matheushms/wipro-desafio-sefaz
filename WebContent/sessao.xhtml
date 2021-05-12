@@ -15,23 +15,33 @@
 		<h:commandButton value="Voltar" action="index"></h:commandButton>	
 	</h:form>
 
-	<h:form id="formPanel" style="margin-top:2%; margin-left:40%">
+	<h:form id="formPanel" style="margin-top:2%; margin-left:20%">
 		<H1>Sefaz - Cadastro ou Atualização de Dados do Usuário</H1>
 		
 		<h:messages infoStyle="color:green"/>
 		<h:panelGrid columns = "2" rendered="true">
 			<h:outputLabel value="Login:" />
-			<h:inputText value="#{cadastroBean.usuario.login}"/>
+			<h:inputText value="#{cadastroBean.usuario.login}" label="Login" validatorMessage="O login deve conter entre 5 e 16 caracteres">
+    			<f:validateLength minimum="5" maximum="16"/>
+    			<f:validateRegex pattern="[^\ ]+" /> 
+    		</h:inputText>	
 			
 			<h:outputLabel value="Nome:" />
-			<h:inputText value="#{cadastroBean.usuario.nome}"  />
+			<h:inputText value="#{cadastroBean.usuario.nome}"  label="Nome" validatorMessage="O nome deve conter apenas letras.">
+    			<f:validateRegex pattern="[a-zA-Z ]*" /> 
+			</h:inputText>
 			
 			<h:outputLabel value="Senha:" />
-			<h:inputSecret value="#{cadastroBean.usuario.senha}"/>
-			
+			<h:inputSecret value="#{cadastroBean.usuario.senha}" validatorMessage="A senha deve conter entre 5 e 16 caracteres">
+    			<f:validateLength minimum="5" maximum="16"/>
+    			<f:validateRegex pattern="[^\ ]+" /> 
+    		</h:inputSecret>	
+    		
 			<h:outputLabel value="E-mail:" />
-			<h:inputText value="#{cadastroBean.usuario.email}" />			
-			
+			<h:inputText value="#{cadastroBean.usuario.email}" label="Email" validatorMessage="E-mail inválido">
+    			<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" /> 
+    		</h:inputText>
+    			
 		</h:panelGrid>
 		<!-- 
 		<h:panelGrid columns = "3" rendered="true">
@@ -44,12 +54,12 @@
 			<h:inputText value="#{cadastroBean.usuario.nome}"/>
 		</h:panelGrid>
 		 -->
-		<h:commandButton value="Cadastrar" action="index.xhtml" ></h:commandButton>	
+		<h:commandButton value="Cadastrar" action="#{cadastroBean.salvar}" ></h:commandButton>	
 		
 	</h:form>
 	
-	<h:form id="formTable" style="margin-top:2%; margin-left:40%">
-		<h:dataTable value="#{cadastroBean.usuarios}" var="usuarios" border="3" cellpadding="6">
+	<h:form id="formTable" style="margin-top:2%; margin-left:20%">
+		<h:dataTable value="#{cadastroBean.usuarios}" var="usuarios" border="1" cellpadding="6">
 			<f:facet name="header">
 				Lista de Usuários Cadastrados
 			</f:facet>

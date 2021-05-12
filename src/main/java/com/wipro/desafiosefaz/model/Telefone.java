@@ -16,7 +16,7 @@ public class Telefone {
 	private Integer id;
 	
 	@Column
-	private Integer ddd;
+	private String ddd;
 	
 	@Column
 	private String numero;
@@ -32,16 +32,12 @@ public class Telefone {
 		this.id = id;
 	}
 
-	public Integer getDdd() {
+	public String getDdd() {
 		return ddd;
 	}
 
-	public void setDdd(Integer ddd) {
-		this.ddd = ddd;
-	}
-	
 	public void setDdd(String ddd) {
-		this.ddd = Integer.parseInt(ddd);
+		this.ddd = ddd;
 	}
 
 	public String getNumero() {

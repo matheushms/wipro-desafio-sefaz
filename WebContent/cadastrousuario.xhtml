@@ -44,69 +44,6 @@
     			
 		</h:panelGrid>
 		
-		<h:form>
-			<h:outputLabel value="Telefone:" />
-			<h:inputText value="#{cadastroBean.telefone.ddd}" label="ddd" validatorMessage="DDD invalido" size="1" type="number"> 
-	    			<f:validateRegex pattern="[0-9]{3}" /> 
-	    	</h:inputText>
-	    	<h:inputText value="#{cadastroBean.telefone.numero}" label="numero" validatorMessage="numero invalido" size="13"> 
-	    			<f:validateRegex pattern="[0-9]{8}" /> 
-	    	</h:inputText>
-			<h:selectOneRadio value="#{cadastroBean.telefone.tipo}" layout="lineDirection">
-			 	<f:selectItem itemValue="Residencial" itemLabel="Residencial"/>
-			 	<f:selectItem itemValue="Celular" itemLabel="Celular"/>
-			 </h:selectOneRadio>
-			 <h:commandButton value="Add" action="#{cadastroBean.addNumber}"/>
-		</h:form>
-		
-		<h:dataTable value="#{cadastroBean.telefones}" var="usuarios" border="3" cellpadding="6">
-			<f:facet name="header">
-				Lista de números
-			</f:facet>
-			
-			<h:column>
-				<f:facet name="header">DDD</f:facet>
-				<h:outputText value="#{telefones.ddd}"></h:outputText>
-			</h:column>
-			
-			<h:column>
-				<f:facet name="header">numero</f:facet>
-				<h:outputText value="#{telefones.numero}"></h:outputText>
-			</h:column>
-			
-			<h:column>
-				<f:facet name="header">tipo</f:facet>
-				<h:outputText value="#{telefones.tipo}"></h:outputText>
-			</h:column>
-			
-			<h:column>
-				<f:facet name="header">Editar</f:facet>
-				<h:commandLink title="Editar">
-					<f:setPropertyActionListener value="#{telefones}" target="#{cadastroBean.telefone}"/> <!-- Objeto pessoa da linha está sendo passado para o objeto pessoa do ManagedBean -->
-					<h:graphicImage value="resources/img/editar.png" height="22" width="22"/>
-				</h:commandLink>
-			</h:column>
-			
-			<h:column>
-				<f:facet name="header">Excluir</f:facet>
-				<h:commandLink action="#{cadastroBean.removeTelefone}" title="Excluir">
-					<f:setPropertyActionListener value="#{telefones}" target="#{cadastroBean.telefone}"/> 
-					<h:graphicImage value="resources/img/excluir.png" height="22" width="22"/>
-				</h:commandLink>
-			</h:column>
-		
-		</h:dataTable>
-		<!-- 
-		<h:panelGrid columns = "3" rendered="true">
-			<h:outputLabel value="Telefone Residencial:" />
-			<h:inputText value="#{cadastroBean.usuario.nome}" size="1"/>
-			<h:inputText value="#{cadastroBean.usuario.nome}"/>
-			
-			<h:outputLabel value="Telefone Celular:" />
-			<h:inputText value="#{cadastroBean.usuario.nome}" size="1"/>
-			<h:inputText value="#{cadastroBean.usuario.nome}"/>
-		</h:panelGrid>
-		 -->
 		<h:commandButton value="Cadastrar" action="#{cadastroBean.salvar}" ></h:commandButton>	
 		
 	</h:form>
